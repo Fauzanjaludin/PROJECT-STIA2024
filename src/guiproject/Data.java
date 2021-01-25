@@ -10,7 +10,7 @@ package guiproject;
  * @author khairinkasmadi
  */
 public class Data {
-    
+    /*
     private int date;     //2type of data int & string
     private int accnum;
     private String name;
@@ -21,9 +21,21 @@ public class Data {
     private int totalunit;
     private int currentcharge;
     private int totalbill;
+*/
+    
+    private int date;        
+    private int accnum;
+    private String name;
+    private String address;
+    private double arrears;
+    private double previous;
+    private double current;
+    private double totalunit;
+    private double currentcharge;
+    private double totalbill;
 
-    public Data(int date, int accnum, String name, String address, int arrears, int previous, int current, int totalunit, int currentcharge, int totalbill) {
-        this.date = date;     //constructor method
+    public Data(int date, int accnum, String name, String address, double arrears, double previous, double current, double totalunit, double currentcharge, double totalbill) {
+        this.date = date;
         this.accnum = accnum;
         this.name = name;
         this.address = address;
@@ -33,10 +45,6 @@ public class Data {
         this.totalunit = totalunit;
         this.currentcharge = currentcharge;
         this.totalbill = totalbill;
-    }
-
-    Data(int date, int accnum, String name, String address, double arrears, double previous, double current, double totalunit, double currentcharge, double totalbill) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getDate() {
@@ -55,32 +63,32 @@ public class Data {
         return address;
     }
 
-    public int getArrears() {
+    public double getArrears() {
         return arrears;
     }
 
-    public int getPrevious() {
+    public double getPrevious() {
         return previous;
     }
 
-    public int getCurrent() {
+    public double getCurrent() {
         return current;
     }
 
-    public int getTotalunit() {
+    public double getTotalunit() {
         return totalunit;
     }
 
-    public int getCurrentcharge() {
+    public double getCurrentcharge() {
         return currentcharge;
     }
 
-    public int getTotalbill() {
+    public double getTotalbill() {
         return totalbill;
     }
-    
-    
-    
+            
+            
+   
     
               
 }
