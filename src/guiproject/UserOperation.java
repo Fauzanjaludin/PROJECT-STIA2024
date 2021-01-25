@@ -22,8 +22,7 @@ public class UserOperation {
         try{
         File fileName = new File("user.txt");
         FileWriter fw = new FileWriter(fileName, true);
-        BufferedWriter bw= new BufferedWriter(fw);
-        PrintWriter pw = new PrintWriter(bw);
+        PrintWriter pw = new PrintWriter(fw);
         
         pw.println(usr.getDate());
         pw.println(usr.getAccnum());
@@ -38,11 +37,12 @@ public class UserOperation {
         
         pw.close();
         pw.flush();
-        bw.close();
         fw.close(); 
         }catch(IOException e){
             
         }
     }
+    
+    
     
 }
