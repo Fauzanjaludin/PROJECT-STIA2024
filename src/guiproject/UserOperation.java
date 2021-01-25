@@ -43,6 +43,29 @@ public class UserOperation {
         }
     }
     
-    
+    public double calctariff(double x){
+       double sum=0;
+       double[] a=new double[5];
+       a[0]=200*0.218;
+       a[1]=100*0.334;
+       a[2]=300*0.516;
+       a[3]=300*0.546;
+       
+      if(x<=200){
+      sum=x*0.218;
+      }else if(x>200&&x<=300){
+      sum=a[0]+((x-200)*0.334);
+      }else if(x>300&&x<=600){
+      sum=a[0]+a[1]+((x-300)*0.516);
+      }
+      else if(x>600&&x<=900){
+      sum=a[0]+a[1]+a[2]+((x-600)*0.546);
+      } 
+      else if(x>=901){
+      sum=a[0]+a[1]+a[2]+a[3]+((x-900)*0.571);
+      }
+       
+        return sum;
+    }
     
 }
