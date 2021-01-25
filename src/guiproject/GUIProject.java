@@ -16,10 +16,7 @@ public class GUIProject {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new BillGUI().setVisible(true);
-        UserOperation user=new UserOperation();
-        user.calctariff(727);
-        System.out.println(user.calctariff(727));
+        
     }
     
 }

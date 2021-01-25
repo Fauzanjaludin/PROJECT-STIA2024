@@ -36,7 +36,7 @@ public class Data {
     }
 
     Data(int date, int accnum, String name, String address, double arrears, double previous, double current, double totalunit, double currentcharge, double totalbill) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getDate() {

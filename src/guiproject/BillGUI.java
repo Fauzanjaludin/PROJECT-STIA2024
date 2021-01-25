@@ -6,10 +6,10 @@
 package guiproject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -17,7 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class BillGUI extends javax.swing.JFrame {
     
-   
+   UserOperation uo=new UserOperation();
+   DecimalFormat df = new DecimalFormat(".00");
 
     /**
      * Creates new form BillGUI
@@ -71,7 +72,6 @@ public class BillGUI extends javax.swing.JFrame {
         jTextArea2 = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -199,9 +199,6 @@ public class BillGUI extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 630, -1, -1));
 
-        jTextField1.setText("Testing Edit");
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 100, -1));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -246,14 +243,14 @@ public class BillGUI extends javax.swing.JFrame {
        double previousmeter = Double.parseDouble(tfPrevious.getText());  //convert String to double
        double currentmeter = Double.parseDouble(tfCurrentmeter.getText());
      
-       
        double totalunit = currentmeter - previousmeter;  //this is in double 
        tfTotalUnit.setText(String.valueOf(totalunit));   //convert to String
        
        double arrears = Double.parseDouble(tfArrears.getText());
-       double currentcharge = Double.parseDouble(tfCurrentCharge.getText());
+       double currentcharge = uo.calctariff(totalunit);
+       tfCurrentCharge.setText(String.valueOf(df.format(currentcharge)));
        double totalbill = arrears + currentcharge;
-       tfTotalBill.setText(String.valueOf(totalbill));
+       tfTotalBill.setText(String.valueOf(df.format(totalbill)));
        
     }//GEN-LAST:event_btnCalculateActionPerformed
 
@@ -340,7 +337,6 @@ public class BillGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField tfAccNum;
     private javax.swing.JTextField tfAddress;
     private javax.swing.JTextField tfArrears;
