@@ -5,10 +5,14 @@
  */
 package guiproject;
 
+//import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -67,7 +71,7 @@ public class BillGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        DispTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -118,6 +122,8 @@ public class BillGUI extends javax.swing.JFrame {
         getContentPane().add(tfArrears, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 214, -1));
         getContentPane().add(tfPrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 194, 223, -1));
         getContentPane().add(tfCurrentmeter, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 232, 223, -1));
+
+        tfTotalUnit.setEnabled(false);
         getContentPane().add(tfTotalUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 270, 223, -1));
         getContentPane().add(tfCurrentCharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 308, 223, -1));
         getContentPane().add(tfTotalBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 346, 223, -1));
@@ -139,6 +145,11 @@ public class BillGUI extends javax.swing.JFrame {
         getContentPane().add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 401, -1, -1));
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 401, -1, -1));
 
         btnDisplay.setText("Display All");
@@ -172,18 +183,16 @@ public class BillGUI extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(393, 11, 798, 355));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        DispTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Date", "Account Number", "Name", "Address", "Arrears", "Previous Meter ", "Current Meter", "Total Unit", "Current Charge", "Total Bill"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(DispTable);
+        DispTable.getAccessibleContext().setAccessibleName("");
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 1171, 314));
 
@@ -270,10 +279,77 @@ public class BillGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayActionPerformed
-        // TODO add your handling code here:
-        ArrayList <Data> usr;
+       try {
+           
+           ArrayList <Data> usr;
+           
+           usr=uo.getData();
+           DefaultTableModel model;
+           model = (DefaultTableModel) DispTable.getModel();
+           for(int i=0;i<usr.size();i++){
+               model.addRow(new Object[]{
+                   usr.get(i).getDate(),
+                   usr.get(i).getAccnum(),
+                   usr.get(i).getName(),
+                   usr.get(i).getAddress(),
+                   usr.get(i).getArrears(),
+                   usr.get(i).getPrevious(),
+                   usr.get(i).getCurrent(),
+                   usr.get(i).getTotalunit(),
+                   usr.get(i).getCurrentcharge(),
+                   usr.get(i).getTotalbill(),
+               });
+                      String b="Date                  :"+usr.get(i).getDate()+"\n"
+                +"Account Number        :"+usr.get(i).getAccnum()+"\n"
+                +"Name                  :"+usr.get(i).getName()+"\n"
+                +"Address               :"+usr.get(i).getAddress()+"\n"
+                +"Arrears               :"+usr.get(i).getArrears()+"\n"
+                +"Previous              :"+usr.get(i).getPrevious()+"\n"
+                +"Current               :"+usr.get(i).getCurrent()+"\n"
+                +"Total Unit            :"+usr.get(i).getTotalunit()+"\n"
+                +"Current Charge        :"+usr.get(i).getCurrentcharge()+"\n"
+                +"Total Bill            :"+usr.get(i).getTotalbill()+"\n";
+        
+        jTextArea1.setText(b);
+        
+           }
+           
+       } catch (Exception ex) {
+           Logger.getLogger(BillGUI.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        
         
     }//GEN-LAST:event_btnDisplayActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        Data ax=null;
+        int a=0;
+        String b;
+        try{
+     
+        a=Integer.parseInt(JOptionPane.showInputDialog("Input Value", null));
+        ax=uo.findRecord(a);
+        if(ax==null){
+            JOptionPane.showMessageDialog(rootPane, "Record Not Found");
+        }else{
+               b="Date                  :"+ax.getDate()+"\n"
+                +"Account Number        :"+ax.getAccnum()+"\n"
+                +"Name                  :"+ax.getName()+"\n"
+                +"Address               :"+ax.getAddress()+"\n"
+                +"Arrears               :"+ax.getArrears()+"\n"
+                +"Previous              :"+ax.getPrevious()+"\n"
+                +"Current               :"+ax.getCurrent()+"\n"
+                +"Total Unit            :"+ax.getTotalunit()+"\n"
+                +"Current Charge        :"+ax.getCurrentcharge()+"\n"
+                +"Total Bill            :"+ax.getTotalbill()+"\n";
+        
+        jTextArea1.setText(b);
+        }
+        }catch(Exception e1){
+            
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,6 +387,7 @@ public class BillGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable DispTable;
     private javax.swing.JButton btnCalculate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDisplay;
@@ -333,7 +410,6 @@ public class BillGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
